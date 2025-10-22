@@ -1,0 +1,10 @@
+/* src/index.css */
+/* Tailwind CSS v4 - CSS-first configuration approach */
+
+/* Import Tailwind CSS v4 (replaces old @tailwind directives) */
+@import "tailwindcss";
+
+/* TODO: Add your custom CSS styles below */
+/* Example: Custom utilities, component styles, or theme extensions */
+
+/* Custom styles can be added here and will work alongside Tailwind */

@@ -1,37 +1,48 @@
 {
-  "name": "ramy-yasser-portfolio-react",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.13.1",
-  "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router": "^7.9.4",
-    "react-router-dom": "^7.9.4",
-    "zod": "^4.1.12"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.2.7",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^24.9.1",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "@vitejs/plugin-react": "^5.0.4",
-    "autoprefixer": "^10.4.21",
-    "jsdom": "^27.0.1",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.15",
-    "typescript": "^5.9.3",
-    "vite": "^7.1.11",
-    "vitest": "^4.0.1"
-  }
+	"name": "ramy-yasser-portfolio-react",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"preview": "vite preview",
+		"type-check": "tsc --noEmit",
+		"test": "vitest",
+		"test:ui": "vitest --ui",
+		"test:coverage": "vitest --coverage",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format --write .",
+		"check": "biome check --write ."
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.13.1",
+	"dependencies": {
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
+		"react-router": "^7.9.4",
+		"react-router-dom": "^7.9.4",
+		"zod": "^4.1.12"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.2.7",
+		"@tailwindcss/vite": "^4.1.15",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.0",
+		"@testing-library/user-event": "^14.6.1",
+		"@types/node": "^24.9.1",
+		"@types/react": "^19.2.2",
+		"@types/react-dom": "^19.2.2",
+		"@vitejs/plugin-react": "^5.0.4",
+		"autoprefixer": "^10.4.21",
+		"jsdom": "^27.0.1",
+		"postcss": "^8.5.6",
+		"tailwindcss": "^4.1.15",
+		"typescript": "^5.9.3",
+		"vite": "^7.1.11",
+		"vitest": "^4.0.1"
+	}
 }
