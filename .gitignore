@@ -1,0 +1,4 @@
+node_modueles/
+.env
+.*.env
+*.env
