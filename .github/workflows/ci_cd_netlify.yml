@@ -27,7 +27,7 @@ jobs:
       - name: Upload build as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: netlify-build-artifact
           path: dist/
 
   deploy:
@@ -37,7 +37,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: build
+          name: netlify-build-artifact
           path: dist/
 
       - name: Install Netlify CLI
