@@ -1,0 +1,67 @@
+{
+	"NavigationBar": {
+		"home": "Home",
+		"about": "About Me",
+		"projects": "Projects",
+		"contact": "Contact",
+		"reviews": "Reviews"
+	},
+	"Loading": {
+		"title": "Loading",
+		"message": "Please wait while the content is loading..."
+	},
+	"Errors": {
+		"notFound": {
+			"title": "Page Not Found",
+			"message": "The page you are looking for does not exist."
+		},
+		"serverError": {
+			"title": "Server Error",
+			"message": "An unexpected error occurred on the server."
+		},
+		"goHome": {
+			"title": "Go Home",
+			"message": "Go back to the homepage."
+		}
+	},
+	"metadata": {
+		"title": "Ramy Yasser Portfolio",
+		"description": "Ramy Yasser's personal portfolio website"
+	},
+	"Home": {
+		"welcome": "Welcome to my portfolio",
+		"description": "I am Ramy Yasser, a passionate software developer specializing in building exceptional digital experiences. Explore my projects and get in touch!",
+		"about": "About Me",
+		"projects": "Projects",
+		"contact": "Contact"
+	},
+	"About": {
+		"title": "About Me",
+		"content": "I am Ramy Yasser, a dedicated software developer with a passion for creating innovative solutions. With expertise in various programming languages and frameworks, I strive to deliver high-quality applications that meet user needs and exceed expectations.",
+		"home": "Home",
+		"contact": "Contact",
+		"projects": "Projects"
+	},
+	"Projects": {
+		"title": "My Projects",
+		"content": "Here are some of the projects I've worked on:",
+		"home": "Home",
+		"contact": "Contact",
+		"about": "About Me"
+	},
+	"Contact": {
+		"title": "Get in Touch",
+		"content": "Feel free to reach out to me via email or LinkedIn.",
+		"home": "Home",
+		"about": "About Me",
+		"projects": "Projects"
+	},
+	"Reviews": {
+		"title": "Reviews",
+		"content": "Here are some reviews from my clients and colleagues:",
+		"home": "Home",
+		"about": "About Me",
+		"projects": "Projects",
+		"contact": "Contact"
+	}
+}

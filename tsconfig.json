@@ -1,19 +1,19 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "jsx": "react-jsx",
-    "moduleResolution": "Bundler",
-    "strict": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["src"]
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"jsx": "react-jsx",
+		"moduleResolution": "Bundler",
+		"strict": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@/*": ["./*"]
+		}
+	},
+	"include": ["src"]
 }
