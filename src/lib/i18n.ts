@@ -17,7 +17,13 @@ i18n.use(initReactI18next).init({
 			translation: arTranslations,
 		},
 	},
-	lng: localStorage.getItem('locale') || 'en', // default language
+	lng: (() => {
+		try {
+			return localStorage.getItem('locale') || 'en';
+		} catch (_) {
+			return 'en';
+		}
+	})(),
 	fallbackLng: 'en',
 	interpolation: {
 		escapeValue: false, // React already escapes values
