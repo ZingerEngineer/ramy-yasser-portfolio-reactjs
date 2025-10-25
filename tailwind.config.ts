@@ -6,36 +6,34 @@
 import type { Config } from 'tailwindcss';
 
 export default {
-  // Content paths for Tailwind JIT to scan for class usage
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-    './src/components/ui/**/*.{js,ts,jsx,tsx}', // shadcn/ui components
-  ],
+	// Content paths for Tailwind JIT to scan for class usage
+	content: [
+		'./index.html',
+		'./src/**/*.{js,ts,jsx,tsx}',
+		'./src/components/ui/**/*.{js,ts,jsx,tsx}', // shadcn/ui components
+	],
 
-  theme: {
-    extend: {
-      // TODO: Add custom theme extensions here
-      // Note: With Tailwind v4, prefer using @theme in CSS for theme configuration
+	theme: {
+		extend: {
+			// TODO: Add custom theme extensions here
+			// Note: With Tailwind v4, prefer using @theme in CSS for theme configuration
+			// Example: Custom colors, fonts, spacing, breakpoints, etc.
+			// colors: {
+			//   primary: {
+			//     50: '#f0f9ff',
+			//     // ... add your brand colors
+			//   },
+			// },
+			// fontFamily: {
+			//   sans: ['Inter', 'sans-serif'],
+			//   // ... add your custom fonts
+			// },
+		},
+	},
 
-      // Example: Custom colors, fonts, spacing, breakpoints, etc.
-      // colors: {
-      //   primary: {
-      //     50: '#f0f9ff',
-      //     // ... add your brand colors
-      //   },
-      // },
-
-      // fontFamily: {
-      //   sans: ['Inter', 'sans-serif'],
-      //   // ... add your custom fonts
-      // },
-    },
-  },
-
-  plugins: [
-    require('tailwindcss-animate'), // Required for shadcn/ui animations
-    // TODO: Add additional Tailwind plugins here
-    // Examples: @tailwindcss/forms, @tailwindcss/typography, etc.
-  ],
+	plugins: [
+		require('tailwindcss-animate'), // Required for shadcn/ui animations
+		// TODO: Add additional Tailwind plugins here
+		// Examples: @tailwindcss/forms, @tailwindcss/typography, etc.
+	],
 } satisfies Config;
