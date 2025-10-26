@@ -63,7 +63,7 @@ jobs:
           path: dist/
 
       - name: Install Netlify CLI
-        run: npm install netlify-cli --save-dev
+        run: npm install -g netlify-cli
 
       - name: Deploy to Netlify
         env:
