@@ -54,6 +54,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    environment: production
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -62,15 +63,15 @@ jobs:
           path: dist/
 
       - name: Install Netlify CLI
-        run: npm install -g netlify-cli
+        run: npm install netlify-cli --save-dev
 
       - name: Deploy to Netlify
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN_SECRET }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_SECRET }}
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            netlify deploy --prod --dir=dist --message "Production deploy from GitHub Actions"
+            netlify deploy --prod --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --dir=dist --message "Production deploy from GitHub Actions" 
           else
-            netlify deploy --dir=dist --message "Preview deploy from GitHub Actions"
+            netlify deploy --dir=dist  --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message "Preview deploy from GitHub Actions"
           fi
