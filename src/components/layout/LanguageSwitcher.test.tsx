@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import LanguageSwitcher from './LanguageSwitcher';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleProvider } from '@/context/LocaleContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 // Mock react-i18next
 vi.mock('react-i18next', () => ({
