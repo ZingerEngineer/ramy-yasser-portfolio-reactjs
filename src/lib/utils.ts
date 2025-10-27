@@ -21,4 +21,4 @@ export const getIconComponent = (iconName: string) => {
 export const getActivePath = (path: string) => {
 	const pageName = path.split('/')[1];
 	return pageName ? `/${pageName}` : '/';
-}
+};
