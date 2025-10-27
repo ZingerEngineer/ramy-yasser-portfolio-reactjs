@@ -12,7 +12,7 @@
 		"test:ui": "vitest --ui",
 		"test:coverage": "vitest --coverage",
 		"lint": "biome check --css-parse-tailwind-directives=true . ",
-		"lint:fix": "biome check --write --css-parse-tailwind-directives=true .",
+		"lint:fix": "biome check --write .",
 		"format": "biome format --write .",
 		"check": "biome check --write .",
 		"clear": "rimraf dist coverage node_modules"
