@@ -8,6 +8,7 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
+	publicDir: 'public',
 	plugins: [
 		react(), // React plugin for JSX/TSX support and Fast Refresh
 		tailwindcss(), // Tailwind CSS v4 Vite plugin
