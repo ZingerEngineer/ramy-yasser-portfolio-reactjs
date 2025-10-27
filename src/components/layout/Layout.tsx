@@ -24,7 +24,7 @@ export function Layout({ children }: LayoutProps) {
 	};
 
 	return (
-		<div className="min-h-screen bg-background">
+		<div className="min-h-screen bg-background p-4">
 			<NavigationBar navigationTabs={navigationBarStatics} tabLabels={tabLabels}>
 				<div className="flex items-center gap-2">
 					<LanguageSwitcher />

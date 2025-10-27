@@ -1,71 +1,58 @@
-// src/components/layout/NavigationBar.tsx
-// Migrated from: ramy-yasser-portfolio/src/components/NavigationBar.tsx
-// Main navigation bar component
-
-import * as LucideIcons from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { cn, getActivePath, getIconComponent } from '@/lib/utils';
 import type { NavigationTab, NavigationTabLabels } from '@/types/global';
 import { CoolLink } from '../customUi/CoolLink';
+import NavDrawer from '../customUi/NavDrawer';
 
-type NavigationBarType = 'default' | 'compact';
+/* ------------------------------------------------------------
+   Hook: useBreakpoint
+   Returns: 'desktop' | 'tablet' | 'mobile'
+------------------------------------------------------------ */
+function useBreakpoint() {
+	const [width, setWidth] = useState(window.innerWidth);
 
-interface NavigationBarProps {
-	className?: string;
-	navigationTabs: NavigationTab[];
-	type?: NavigationBarType;
-	children?: React.ReactNode;
-	tabLabels: NavigationTabLabels;
-}
-
-export default function NavigationBar({
-	navigationTabs,
-	className,
-	type = 'default',
-	children,
-	tabLabels,
-}: NavigationBarProps) {
-	const location = useLocation();
-	const pathname = location.pathname;
-
-	const getActivePath = useCallback((path: string) => {
-		const pageName = path.split('/')[1];
-		return pageName ? `/${pageName}` : '/';
+	useEffect(() => {
+		const handleResize = () => setWidth(window.innerWidth);
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
 	}, []);
 
-	const [activePath, setActivePath] = useState<string>(getActivePath(pathname));
+	if (width >= 1024) return 'desktop';
+	if (width >= 768) return 'tablet';
+	return 'mobile';
+}
 
-	const getIconComponent = (iconName: string) => {
-		const IconComponent = (
-			LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>
-		)[
-			iconName
-				.split('-')
-				.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-				.join('')
-		];
-		return IconComponent || LucideIcons.Circle;
-	};
+/* ------------------------------------------------------------
+   Subcomponents
+------------------------------------------------------------ */
 
+interface NavLayoutProps {
+	navigationTabs: NavigationTab[];
+	tabLabels: NavigationTabLabels;
+	activePath: string;
+	setActivePath: (path: string) => void;
+	children?: React.ReactNode;
+}
+
+/* Desktop version */
+function DesktopNav({
+	navigationTabs,
+	tabLabels,
+	activePath,
+	setActivePath,
+	children,
+}: NavLayoutProps) {
 	return (
-		<nav
-			className={
-				cn(
-					'w-full flex items-center justify-between rounded-2xl px-4 py-2 border-b bg-white dark:bg-black',
-					type === 'compact' ? 'h-12' : 'h-16',
-					className,
-				) || undefined
-			}
-		>
+		<div className="flex w-full items-center justify-between">
 			<ul className="flex items-center gap-4">
 				{navigationTabs.map((tab) => {
 					const Icon = getIconComponent(tab.icon);
 					return (
 						<li key={tab.label}>
 							<CoolLink
-								onClick={() => setActivePath(tab.href)}
-								className={cn(activePath === tab.href ? 'border-b-2 ' : '')}
+								onClick={() => setActivePath(getActivePath(tab.href))}
+								className={cn('rounded-md', activePath === tab.href && 'border-b-2')}
 								to={tab.href}
 								variant="ghost"
 								size="sm"
@@ -78,6 +65,122 @@ export default function NavigationBar({
 				})}
 			</ul>
 			{children}
+		</div>
+	);
+}
+
+/* Tablet (portrait) version */
+function TabletNav({ navigationTabs, activePath, setActivePath, children }: NavLayoutProps) {
+	return (
+		<div className="flex w-full items-center justify-between">
+			<ul className="flex items-center gap-4">
+				{navigationTabs.map((tab) => {
+					const Icon = getIconComponent(tab.icon);
+					return (
+						<li key={tab.label}>
+							<CoolLink
+								onClick={() => setActivePath(getActivePath(tab.href))}
+								className={cn('rounded-md', activePath === tab.href && 'border-b-2')}
+								to={tab.href}
+								variant="ghost"
+								size="sm"
+							>
+								<Icon className="w-6 h-6" />
+							</CoolLink>
+						</li>
+					);
+				})}
+			</ul>
+			{children}
+		</div>
+	);
+}
+
+/* Mobile version (drawer) */
+function MobileNav({
+	navigationTabs,
+	tabLabels,
+	activePath,
+	setActivePath,
+	children,
+}: NavLayoutProps) {
+	return (
+		<div className="flex w-full items-center justify-between">
+			<NavDrawer
+				navigationTabs={navigationTabs}
+				tabLabels={tabLabels}
+				activePath={activePath}
+				updateActivePath={setActivePath}
+			/>
+			{children}
+		</div>
+	);
+}
+
+/* ------------------------------------------------------------
+   Main Component: NavigationBar
+------------------------------------------------------------ */
+
+export interface NavigationBarProps {
+	className?: string;
+	navigationTabs: NavigationTab[];
+	children?: React.ReactNode;
+	tabLabels: NavigationTabLabels;
+}
+
+export default function NavigationBar({
+	navigationTabs,
+	className,
+	children,
+	tabLabels,
+}: NavigationBarProps) {
+	const location = useLocation();
+	const pathname = location.pathname;
+	const id = useId();
+	const breakpoint = useBreakpoint();
+
+	const [activePath, setActivePath] = useState(() => getActivePath(pathname));
+
+	return (
+		<nav
+			id={`${id}-navigation`}
+			className={cn(
+				'relative flex items-center justify-between rounded-lg px-4 py-2 border-b bg-white dark:bg-black',
+				className,
+			)}
+		>
+			{breakpoint === 'desktop' && (
+				<DesktopNav
+					navigationTabs={navigationTabs}
+					tabLabels={tabLabels}
+					activePath={activePath}
+					setActivePath={setActivePath}
+				>
+					{children}
+				</DesktopNav>
+			)}
+
+			{breakpoint === 'tablet' && (
+				<TabletNav
+					navigationTabs={navigationTabs}
+					tabLabels={tabLabels}
+					activePath={activePath}
+					setActivePath={setActivePath}
+				>
+					{children}
+				</TabletNav>
+			)}
+
+			{breakpoint === 'mobile' && (
+				<MobileNav
+					navigationTabs={navigationTabs}
+					tabLabels={tabLabels}
+					activePath={activePath}
+					setActivePath={setActivePath}
+				>
+					{children}
+				</MobileNav>
+			)}
 		</nav>
 	);
 }
