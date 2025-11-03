@@ -194,7 +194,7 @@ describe('LanguageSwitcher', () => {
 
 		it('shows abbreviated text on small screens in Arabic', async () => {
 			const user = userEvent.setup();
-			global.innerWidth = 500;
+			window.innerWidth = 500;
 			window.dispatchEvent(new Event('resize'));
 
 			renderWithLocaleProvider(<LanguageSwitcher />);
@@ -208,7 +208,7 @@ describe('LanguageSwitcher', () => {
 		});
 
 		it('shows abbreviated text on small screens in English', async () => {
-			global.innerWidth = 500;
+			window.innerWidth = 500;
 			window.dispatchEvent(new Event('resize'));
 
 			renderWithLocaleProvider(<LanguageSwitcher />);

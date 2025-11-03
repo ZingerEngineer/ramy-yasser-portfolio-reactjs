@@ -1,186 +1,102 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useBreakpointContext } from '@/context/BreakPointContext';
+import { useScrollPointPosition } from '@/hooks/useScrollPosition';
 import { cn, getActivePath, getIconComponent } from '@/lib/utils';
-import type { NavigationTab, NavigationTabLabels } from '@/types/global';
+import type { NavigationBarProps, NavigationTabLabels } from '@/types/global';
 import { CoolLink } from '../customUi/CoolLink';
 import NavDrawer from '../customUi/NavDrawer';
 
-/* ------------------------------------------------------------
-   Hook: useBreakpoint
-   Returns: 'desktop' | 'tablet' | 'mobile'
------------------------------------------------------------- */
-function useBreakpoint() {
-	const [width, setWidth] = useState(window.innerWidth);
-
-	useEffect(() => {
-		const handleResize = () => setWidth(window.innerWidth);
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	if (width >= 1024) return 'desktop';
-	if (width >= 768) return 'tablet';
-	return 'mobile';
-}
-
-/* ------------------------------------------------------------
-   Subcomponents
------------------------------------------------------------- */
-
-interface NavLayoutProps {
-	navigationTabs: NavigationTab[];
-	tabLabels: NavigationTabLabels;
-	activePath: string;
-	setActivePath: (path: string) => void;
-	children?: React.ReactNode;
-}
-
-/* Desktop version */
-function DesktopNav({
-	navigationTabs,
-	tabLabels,
-	activePath,
-	setActivePath,
-	children,
-}: NavLayoutProps) {
-	return (
-		<div className="flex w-full items-center justify-between">
-			<ul className="flex items-center gap-4">
-				{navigationTabs.map((tab) => {
-					const Icon = getIconComponent(tab.icon);
-					return (
-						<li key={tab.label}>
-							<CoolLink
-								onClick={() => setActivePath(getActivePath(tab.href))}
-								className={cn('rounded-md', activePath === tab.href && 'border-b-2')}
-								to={tab.href}
-								variant="ghost"
-								size="sm"
-							>
-								<Icon className="w-6 h-6 mr-2" />
-								{tabLabels[tab.label.toLowerCase() as keyof NavigationTabLabels]}
-							</CoolLink>
-						</li>
-					);
-				})}
-			</ul>
-			{children}
-		</div>
-	);
-}
-
-/* Tablet (portrait) version */
-function TabletNav({ navigationTabs, activePath, setActivePath, children }: NavLayoutProps) {
-	return (
-		<div className="flex w-full items-center justify-between">
-			<ul className="flex items-center gap-4">
-				{navigationTabs.map((tab) => {
-					const Icon = getIconComponent(tab.icon);
-					return (
-						<li key={tab.label}>
-							<CoolLink
-								onClick={() => setActivePath(getActivePath(tab.href))}
-								className={cn('rounded-md', activePath === tab.href && 'border-b-2')}
-								to={tab.href}
-								variant="ghost"
-								size="sm"
-							>
-								<Icon className="w-6 h-6" />
-							</CoolLink>
-						</li>
-					);
-				})}
-			</ul>
-			{children}
-		</div>
-	);
-}
-
-/* Mobile version (drawer) */
-function MobileNav({
-	navigationTabs,
-	tabLabels,
-	activePath,
-	setActivePath,
-	children,
-}: NavLayoutProps) {
-	return (
-		<div className="flex w-full items-center justify-between">
-			<NavDrawer
-				navigationTabs={navigationTabs}
-				tabLabels={tabLabels}
-				activePath={activePath}
-				updateActivePath={setActivePath}
-			/>
-			{children}
-		</div>
-	);
-}
-
-/* ------------------------------------------------------------
-   Main Component: NavigationBar
------------------------------------------------------------- */
-
-export interface NavigationBarProps {
-	className?: string;
-	navigationTabs: NavigationTab[];
-	children?: React.ReactNode;
-	tabLabels: NavigationTabLabels;
-}
-
+/**
+ * Responsive, scroll-aware navigation bar.
+ * Adjusts layout for mobile/tablet/desktop using BreakpointContext.
+ */
 export default function NavigationBar({
 	navigationTabs,
 	className,
-	children,
 	tabLabels,
+	children,
 }: NavigationBarProps) {
+	const breakpoint = useBreakpointContext();
 	const location = useLocation();
-	const pathname = location.pathname;
-	const id = useId();
-	const breakpoint = useBreakpoint();
 
-	const [activePath, setActivePath] = useState(() => getActivePath(pathname));
+	const [activePath, setActivePath] = useState(() => getActivePath(location.pathname));
+	const [mounted, setMounted] = useState(false); // for SSR-safe rendering
+	const scrollY = useScrollPointPosition();
+
+	useEffect(() => setMounted(true), []);
+
+	// Keep active path in sync with route
+	useEffect(() => {
+		setActivePath(getActivePath(location.pathname));
+	}, [location.pathname]);
+
+	if (!breakpoint || !mounted) return null;
+
+	const isDesktop = breakpoint === 'desktop';
+	const isTablet = breakpoint === 'tablet';
+	const isMobile = breakpoint === 'mobile';
+	const showLabels = isDesktop || isTablet;
+
+	const isScrolled = scrollY > 0;
 
 	return (
-		<nav
-			id={`${id}-navigation`}
+		<div
 			className={cn(
-				'relative flex items-center justify-between rounded-lg px-4 py-2 border-b bg-white dark:bg-black',
+				'sticky pt-4 px-4 top-0 z-50 transition-all duration-300 max-w-6xl mx-auto',
+				isScrolled ? 'p-0 max-w-280' : '',
 				className,
 			)}
 		>
-			{breakpoint === 'desktop' && (
-				<DesktopNav
-					navigationTabs={navigationTabs}
-					tabLabels={tabLabels}
-					activePath={activePath}
-					setActivePath={setActivePath}
+			{isMobile ? (
+				<nav
+					className={cn(
+						'flex items-center justify-between border-b bg-white dark:bg-black px-4 py-2 transition-all duration-200',
+						isScrolled ? 'rounded-none' : 'rounded-lg',
+					)}
 				>
+					<NavDrawer
+						navigationTabs={navigationTabs}
+						tabLabels={tabLabels}
+						activePath={activePath}
+						updateActivePath={setActivePath}
+					/>
 					{children}
-				</DesktopNav>
-			)}
+				</nav>
+			) : (
+				<nav
+					className={cn(
+						'relative flex items-center justify-between border-b bg-white dark:bg-black rounded-lg px-4 py-2 transition-all duration-200',
+						isScrolled ? 'rounded-none' : 'rounded-lg',
+					)}
+				>
+					<ul className="flex items-center gap-4">
+						{navigationTabs.map((tab) => {
+							const Icon = getIconComponent(tab.icon);
+							const isActive = activePath === tab.href;
 
-			{breakpoint === 'tablet' && (
-				<TabletNav
-					navigationTabs={navigationTabs}
-					tabLabels={tabLabels}
-					activePath={activePath}
-					setActivePath={setActivePath}
-				>
+							return (
+								<li key={tab.label}>
+									<CoolLink
+										onClick={() => setActivePath(getActivePath(tab.href))}
+										className={cn(
+											'flex items-center rounded-md px-2 py-1 transition-colors',
+											isActive ? 'border-b-2 border-primary text-primary' : 'hover:text-primary/70',
+										)}
+										to={tab.href}
+										variant="ghost"
+										size="sm"
+									>
+										<Icon className={cn('w-5 h-5', showLabels && 'mr-2')} />
+										{showLabels && tabLabels[tab.label.toLowerCase() as keyof NavigationTabLabels]}
+									</CoolLink>
+								</li>
+							);
+						})}
+					</ul>
 					{children}
-				</TabletNav>
+				</nav>
 			)}
-
-			{breakpoint === 'mobile' && (
-				<MobileNav
-					navigationTabs={navigationTabs}
-					tabLabels={tabLabels}
-					activePath={activePath}
-					setActivePath={setActivePath}
-				>
-					{children}
-				</MobileNav>
-			)}
-		</nav>
+		</div>
 	);
 }

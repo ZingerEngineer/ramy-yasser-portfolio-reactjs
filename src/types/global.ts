@@ -20,3 +20,10 @@ export interface NavigationTabLabels {
 	contact: string;
 	reviews: string;
 }
+
+export interface NavigationBarProps {
+	className?: string;
+	navigationTabs: NavigationTab[];
+	tabLabels: NavigationTabLabels;
+	children?: React.ReactNode;
+}
