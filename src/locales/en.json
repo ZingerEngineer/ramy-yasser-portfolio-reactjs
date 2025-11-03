@@ -29,6 +29,8 @@
 		"description": "Ramy Yasser's personal portfolio website"
 	},
 	"Home": {
+		"name": "Ramy Yasser",
+		"profession": "Full-Stack Software Developer",
 		"welcome": "Welcome to my portfolio",
 		"description": "I am Ramy Yasser, a passionate software developer specializing in building exceptional digital experiences. Explore my projects and get in touch!",
 		"about": "About Me",
