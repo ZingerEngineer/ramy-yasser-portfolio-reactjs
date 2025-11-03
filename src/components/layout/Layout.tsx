@@ -1,8 +1,7 @@
 // src/components/layout/Layout.tsx
-// Main layout component with navigation
-
 import { useTranslation } from 'react-i18next';
 import { navigationBarStatics } from '@/constants/navigation';
+import { BreakpointProvider } from '@/context/BreakPointContext';
 import type { NavigationTabLabels } from '@/types/global';
 import LanguageSwitcher from './LanguageSwitcher';
 import NavigationBar from './NavigationBar';
@@ -24,14 +23,18 @@ export function Layout({ children }: LayoutProps) {
 	};
 
 	return (
-		<div className="min-h-screen bg-background p-4">
-			<NavigationBar navigationTabs={navigationBarStatics} tabLabels={tabLabels}>
-				<div className="flex items-center gap-2">
-					<LanguageSwitcher />
-					<ThemeToggle />
+		<div className="min-h-screen bg-background">
+			<BreakpointProvider>
+				<NavigationBar navigationTabs={navigationBarStatics} tabLabels={tabLabels}>
+					<div className="flex items-center gap-2">
+						<LanguageSwitcher />
+						<ThemeToggle />
+					</div>
+				</NavigationBar>
+				<div id={'main-content'} className="p-4">
+					{children}
 				</div>
-			</NavigationBar>
-			{children}
+			</BreakpointProvider>
 		</div>
 	);
 }
