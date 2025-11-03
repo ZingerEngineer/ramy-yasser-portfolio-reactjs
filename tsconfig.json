@@ -13,7 +13,9 @@
 		"baseUrl": "./src",
 		"paths": {
 			"@/*": ["./*"]
-		}
+		},
+		"typeRoots": ["./src/@types", "./node_modules/@types"],
+		"types": []
 	},
-	"include": ["src"]
+	"include": ["src/**/*"]
 }

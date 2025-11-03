@@ -2,11 +2,13 @@ import { MenuIcon } from 'lucide-react';
 import { useState } from 'react';
 import { cn, getIconComponent } from '@/lib/utils';
 import type { NavigationTabLabels } from '@/types/global';
+import type { NavigationBarProps, NavigationTab } from '../../types/global';
 import { CoolLink } from '../customUi/CoolLink';
-import type { NavigationBarProps } from '../layout/NavigationBar';
 import { Button } from '../ui/button';
+import { useScrollPointPosition } from '@/hooks/useScrollPosition';
 
-interface NavigationDrawerProps extends Omit<NavigationBarProps, 'children' | 'className'> {
+interface NavigationDrawerProps
+	extends Omit<NavigationBarProps, 'children' | 'className' | 'breakpoint'> {
 	buttonClassName?: string;
 	drawerClassName?: string;
 	activePath: string;
@@ -22,6 +24,7 @@ export default function NavDrawer({
 	updateActivePath,
 }: NavigationDrawerProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const scrollY = useScrollPointPosition();
 	return (
 		<div>
 			<Button
@@ -34,14 +37,15 @@ export default function NavDrawer({
 			</Button>
 			<div
 				className={cn(
-					'absolute w-full left-0 right-0 z-10 px-4',
-					!isOpen ? 'max-h-0 overflow-hidden' : 'max-h-screen p-4',
+					'absolute w-full left-4 top-20 z-10 px-4',
 					'drawer flex bg-white dark:bg-black rounded-lg mt-2  transition-all duration-300',
+					!isOpen ? 'max-h-0 overflow-hidden' : 'max-h-screen p-4',
+					scrollY > 0 ? 'left-0 top-auto rounded-t-none' : 'w-[calc(100%-2rem)] ',
 					drawerClassName,
 				)}
 			>
 				<ul className="flex w-full flex-col justify-center gap-4">
-					{navigationTabs.map((tab) => {
+					{navigationTabs.map((tab: NavigationTab) => {
 						const Icon = getIconComponent(tab.icon);
 						return (
 							<li key={tab.label}>
