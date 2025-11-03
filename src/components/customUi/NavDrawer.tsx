@@ -1,11 +1,11 @@
 import { MenuIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useScrollPointPosition } from '@/hooks/useScrollPosition';
 import { cn, getIconComponent } from '@/lib/utils';
 import type { NavigationTabLabels } from '@/types/global';
 import type { NavigationBarProps, NavigationTab } from '../../types/global';
 import { CoolLink } from '../customUi/CoolLink';
 import { Button } from '../ui/button';
-import { useScrollPointPosition } from '@/hooks/useScrollPosition';
 
 interface NavigationDrawerProps
 	extends Omit<NavigationBarProps, 'children' | 'className' | 'breakpoint'> {
