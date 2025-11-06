@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useBreakpointContext } from '@/context/BreakPointContext';
 import { useScrollPointPosition } from '@/hooks/useScrollPosition';
-import { cn, getActivePath, getIconComponent } from '@/lib/utils';
+import { cn, getActivePath } from '@/lib/utils';
 import type { NavigationBarProps, NavigationTabLabels } from '@/types/global';
 import { CoolLink } from '../customUi/CoolLink';
 import NavDrawer from '../customUi/NavDrawer';
@@ -72,7 +72,7 @@ export default function NavigationBar({
 				>
 					<ul className="flex items-center gap-4">
 						{navigationTabs.map((tab) => {
-							const Icon = getIconComponent(tab.icon);
+							const Icon = tab.icon;
 							const isActive = activePath === tab.href;
 
 							return (

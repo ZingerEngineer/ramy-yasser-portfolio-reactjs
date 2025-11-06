@@ -1,7 +1,7 @@
 import { MenuIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useScrollPointPosition } from '@/hooks/useScrollPosition';
-import { cn, getIconComponent } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import type { NavigationTabLabels } from '@/types/global';
 import type { NavigationBarProps, NavigationTab } from '../../types/global';
 import { CoolLink } from '../customUi/CoolLink';
@@ -46,7 +46,7 @@ export default function NavDrawer({
 			>
 				<ul className="flex w-full flex-col justify-center gap-4">
 					{navigationTabs.map((tab: NavigationTab) => {
-						const Icon = getIconComponent(tab.icon);
+						const Icon = tab.icon;
 						return (
 							<li key={tab.label}>
 								<CoolLink
