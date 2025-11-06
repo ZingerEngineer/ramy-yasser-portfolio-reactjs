@@ -5,21 +5,32 @@ on:
     branches:
       - main
       - development
+    paths:
+      - "src/**"
+      - "vite.config.ts"
+      - "tailwind.config.ts"
+      - "package.json"
+      - ".github/workflows/ci_cd_netlify.yml"
+
+concurrency:
+  group: netlify-deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         run: npm test
@@ -28,27 +39,28 @@ jobs:
         run: npm run lint
 
   build:
-    needs: test
     runs-on: ubuntu-latest
+    needs: test
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build
 
-      - name: Upload build as artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: netlify-build-artifact
+          name: vite-build
           path: dist/
 
   deploy:
@@ -59,7 +71,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: netlify-build-artifact
+          name: vite-build
           path: dist/
 
       - name: Install Netlify CLI
@@ -71,7 +83,9 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_SECRET }}
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            netlify deploy --prod --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --dir=dist --message "Production deploy from GitHub Actions" 
+            echo "🚀 Deploying production build..."
+            netlify deploy --dir=dist --prodIfUnlocked --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message "Production deploy from GitHub Actions"
           else
-            netlify deploy --dir=dist  --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message "Preview deploy from GitHub Actions"
+            echo "⚡ Deploying preview build..."
+            netlify deploy --dir=dist --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message "Preview deploy from GitHub Actions"
           fi
