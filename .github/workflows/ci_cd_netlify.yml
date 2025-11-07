@@ -69,6 +69,9 @@ jobs:
           fi
           echo "✅ node_modules found, continuing..."
 
+      - name: Recheck dependencies
+        run: pnpm install
+
       - name: Run tests
         run: pnpm test
 
@@ -104,6 +107,9 @@ jobs:
             exit 1
           fi
           echo "✅ node_modules found, continuing..."
+
+      - name: Recheck dependencies
+        run: pnpm install
 
       - name: Build project
         run: pnpm run build
