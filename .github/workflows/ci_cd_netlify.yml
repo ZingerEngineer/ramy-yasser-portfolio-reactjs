@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  install-dependencies:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,47 +30,21 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
-      
-      - name: Upload dependencies artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: pnpm-dependencies
-          path: node_modules/
-
-  test:
-    needs: install-dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Download dependencies artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: pnpm-dependencies
-          path: node_modules/
-
-      - name: Verify dependencies
-        run: |
-          if [ ! -d "node_modules" ]; then
-            echo "❌ node_modules not found after artifact download!"
-            exit 1
-          fi
-          echo "✅ node_modules found, continuing..."
-
-      - name: Recheck dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Run tests
         run: pnpm test
@@ -89,27 +63,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Download dependencies artifact
-        uses: actions/download-artifact@v4
+      - name: Get pnpm store directory
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
         with:
-          name: pnpm-dependencies
-          path: node_modules/
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
-      - name: Verify dependencies
-        run: |
-          if [ ! -d "node_modules" ]; then
-            echo "❌ node_modules not found after artifact download!"
-            exit 1
-          fi
-          echo "✅ node_modules found, continuing..."
-
-      - name: Recheck dependencies
-        run: pnpm install
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build project
         run: pnpm run build
@@ -141,7 +112,7 @@ jobs:
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "🚀 Deploying production build..."
-            netlify deploy --dir=dist --prodIfUnlocked --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message "Production deploy from GitHub Actions"
+            netlify deploy --dir=dist --prod --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message "Production deploy from GitHub Actions"
           else
             echo "⚡ Deploying preview build..."
             netlify deploy --dir=dist --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --message "Preview deploy from GitHub Actions"
