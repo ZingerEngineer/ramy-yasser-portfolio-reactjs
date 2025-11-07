@@ -52,7 +52,7 @@ export function Home() {
 					<h1 className="font-black lg:text-5xl md:text-3xl text-sm">{t('Home.welcome')}</h1>
 					<p className="lg:text-lg md:text-sm text-xs mt-4">{t('Home.description')}</p>
 					<div className="mt-6 flex flex-row gap-4">
-						<CoolLink size="sm" variant="default" to="/projects">
+						<CoolLink variant="default" to="/projects">
 							<AppWindow className="size-5" />
 							{t('Home.projects')}
 						</CoolLink>

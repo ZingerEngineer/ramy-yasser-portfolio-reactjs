@@ -1,6 +1,8 @@
 // src/types/global.ts
 // Migrated from: ramy-yasser-portfolio/src/types/global.ts
 
+import type { LucideProps } from 'lucide-react';
+import type { ForwardRefExoticComponent, RefAttributes } from 'react';
 import { z } from 'zod';
 
 export const LocaleSchema = z.enum(['en', 'ar']);
@@ -9,7 +11,7 @@ export type TLocale = z.infer<typeof LocaleSchema>;
 // Navigation types
 export interface NavigationTab {
 	label: string;
-	icon: string; // lucide-react icon name
+	icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>; // lucide-react icon name
 	href: string;
 }
 
