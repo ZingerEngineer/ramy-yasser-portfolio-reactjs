@@ -31,18 +31,17 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      
       - name: Install dependencies
         run: pnpm install
       
       - name: Upload dependencies artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pnpm-deps
-          path: node_modules
+          name: pnpm-dependencies
+          path: node_modules/
 
   test:
-    needs: install-dependencies 
+    needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -56,12 +55,19 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-
       - name: Download dependencies artifact
         uses: actions/download-artifact@v4
         with:
-          name: pnpm-deps
-          path: node_modules
+          name: pnpm-dependencies
+          path: node_modules/
+
+      - name: Verify dependencies
+        run: |
+          if [ ! -d "node_modules" ]; then
+            echo "❌ node_modules not found after artifact download!"
+            exit 1
+          fi
+          echo "✅ node_modules found, continuing..."
 
       - name: Run tests
         run: pnpm test
@@ -84,12 +90,20 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        
+
       - name: Download dependencies artifact
         uses: actions/download-artifact@v4
         with:
-          name: pnpm-deps
-          path: node_modules
+          name: pnpm-dependencies
+          path: node_modules/
+
+      - name: Verify dependencies
+        run: |
+          if [ ! -d "node_modules" ]; then
+            echo "❌ node_modules not found after artifact download!"
+            exit 1
+          fi
+          echo "✅ node_modules found, continuing..."
 
       - name: Build project
         run: pnpm run build
