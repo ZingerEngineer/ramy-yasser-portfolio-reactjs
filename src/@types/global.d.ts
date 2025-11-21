@@ -1,3 +1,6 @@
+// Vite environment variables
+/// <reference types="vite/client" />
+
 // Asset module declarations for image imports
 
 declare module '*.avif' {
