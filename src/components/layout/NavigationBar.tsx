@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useBreakpointContext } from '@/context/BreakPointContext';
-import { useScrollPointPosition } from '@/hooks/useScrollPosition';
+import { useScrollThreshold } from '@/hooks/useScrollThreshold';
 import { cn, getActivePath } from '@/lib/utils';
 import type { NavigationBarProps, NavigationTabLabels } from '@/types/global';
 import { CoolLink } from '../customUi/CoolLink';
@@ -22,7 +22,7 @@ export default function NavigationBar({
 
 	const [activePath, setActivePath] = useState(() => getActivePath(location.pathname));
 	const [mounted, setMounted] = useState(false); // for SSR-safe rendering
-	const scrollY = useScrollPointPosition();
+	const isScrolled = useScrollThreshold(0);
 
 	useEffect(() => setMounted(true), []);
 
@@ -38,20 +38,18 @@ export default function NavigationBar({
 	const isMobile = breakpoint === 'mobile';
 	const showLabels = isDesktop || isTablet;
 
-	const isScrolled = scrollY > 0;
-
 	return (
 		<div
 			className={cn(
-				'sticky pt-4 px-4 top-0 z-50 transition-all duration-300 max-w-6xl mx-auto',
-				isScrolled ? 'p-0 max-w-280' : '',
+				'flex justify-center items-center sticky pt-4  top-0 z-50 transition-all duration-300 w-full min-w-0',
+				isScrolled ? 'p-0' : '',
 				className,
 			)}
 		>
 			{isMobile ? (
 				<nav
 					className={cn(
-						'flex items-center justify-between border-b bg-white dark:bg-black px-4 py-2 transition-all duration-200',
+						'flex items-center justify-between w-full border-b bg-white dark:bg-black px-4 py-2 transition-all duration-200',
 						isScrolled ? 'rounded-none' : 'rounded-lg',
 					)}
 				>
@@ -66,7 +64,7 @@ export default function NavigationBar({
 			) : (
 				<nav
 					className={cn(
-						'relative flex items-center justify-between border-b bg-white dark:bg-black rounded-lg px-4 py-2 transition-all duration-200',
+						'relative flex w-full items-center max-w-5xl justify-between border-b bg-white dark:bg-black rounded-lg px-4 py-2 transition-all duration-200',
 						isScrolled ? 'rounded-none' : 'rounded-lg',
 					)}
 				>

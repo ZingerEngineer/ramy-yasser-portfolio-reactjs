@@ -1,6 +1,6 @@
 import { MenuIcon } from 'lucide-react';
-import { useState } from 'react';
-import { useScrollPointPosition } from '@/hooks/useScrollPosition';
+import { useCallback, useState } from 'react';
+import { useScrollThreshold } from '@/hooks/useScrollThreshold';
 import { cn } from '@/lib/utils';
 import type { NavigationTabLabels } from '@/types/global';
 import type { NavigationBarProps, NavigationTab } from '../../types/global';
@@ -24,7 +24,15 @@ export default function NavDrawer({
 	updateActivePath,
 }: NavigationDrawerProps) {
 	const [isOpen, setIsOpen] = useState(false);
-	const scrollY = useScrollPointPosition();
+	const isScrolled = useScrollThreshold(0);
+
+	const handleDrawerTabClick = useCallback(
+		(path: string) => {
+			updateActivePath(path);
+			setIsOpen((prev) => !prev);
+		},
+		[updateActivePath],
+	);
 	return (
 		<div>
 			<Button
@@ -40,7 +48,7 @@ export default function NavDrawer({
 					'absolute w-full left-4 top-20 z-10 px-4',
 					'drawer flex bg-white dark:bg-black rounded-lg mt-2  transition-all duration-300',
 					!isOpen ? 'max-h-0 overflow-hidden' : 'max-h-screen p-4',
-					scrollY > 0 ? 'left-0 top-auto rounded-t-none' : 'w-[calc(100%-2rem)] ',
+					isScrolled ? 'left-0 top-auto rounded-t-none' : 'w-[calc(100%-2rem)] ',
 					drawerClassName,
 				)}
 			>
@@ -50,7 +58,7 @@ export default function NavDrawer({
 						return (
 							<li key={tab.label}>
 								<CoolLink
-									onClick={() => updateActivePath(tab.href)}
+									onClick={() => handleDrawerTabClick(tab.href)}
 									className={cn('rounded-md w-full', activePath === tab.href ? 'border-b-2 ' : '')}
 									to={tab.href}
 									variant="ghost"
