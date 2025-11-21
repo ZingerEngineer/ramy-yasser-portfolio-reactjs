@@ -38,7 +38,8 @@
 				"noUnknownAtRules": "off"
 			},
 			"correctness": {
-				"noInvalidPositionAtImportRule": "off"
+				"noInvalidPositionAtImportRule": "off",
+				"useExhaustiveDependencies": "off"
 			}
 		}
 	},

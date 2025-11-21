@@ -40,27 +40,126 @@
 	"About": {
 		"title": "About Me",
 		"content": "I am Ramy Yasser, a dedicated software developer with a passion for creating innovative solutions. With expertise in various programming languages and frameworks, I strive to deliver high-quality applications that meet user needs and exceed expectations.",
+		"nationality": {
+			"title": "Nationality",
+			"value": "Egyptian"
+		},
+		"religion": {
+			"title": "Religion",
+			"value": "Islam"
+		},
+		"militaryStatus": {
+			"title": "Military Status",
+			"value": "Exempted"
+		},
+		"hobbies": {
+			"title": "Hobbies & Interests",
+			"items": ["Gaming", "Gym & Weight Lifting"]
+		},
+		"techStack": {
+			"title": "Tech Stack",
+			"description": "Technologies and tools I work with",
+			"categories": {
+				"frontend": {
+					"title": "Frontend",
+					"items": [
+						"React",
+						"Vue.js",
+						"Next.js",
+						"TypeScript",
+						"JavaScript",
+						"HTML",
+						"CSS",
+						"Sass",
+						"Tailwind CSS",
+						"Vite"
+					]
+				},
+				"backend": {
+					"title": "Backend",
+					"items": ["Node.js", "Express", "API Development"]
+				},
+				"database": {
+					"title": "Database",
+					"items": ["SQL", "NoSQL", "MySQL", "MongoDB", "MSSQL", "PostgreSQL"]
+				},
+				"languages": {
+					"title": "Languages",
+					"items": ["JavaScript", "TypeScript", "Python"]
+				},
+				"tools": {
+					"title": "Tools & DevOps",
+					"items": ["Git", "Docker", "CI/CD", "Testing"]
+				}
+			}
+		},
 		"home": "Home",
 		"contact": "Contact",
 		"projects": "Projects"
 	},
 	"Projects": {
 		"title": "My Projects",
-		"content": "Here are some of the projects I've worked on:",
+		"description": "A showcase of my work - from web applications to full-stack solutions. Each project represents a unique challenge and learning experience.",
+		"comingSoon": {
+			"title": "Coming Soon",
+			"description": "I'm currently working on some exciting projects! Check back soon to see what I've been building."
+		},
+		"viewWebsite": "Visit Website",
+		"viewRepository": "View Repository",
+		"backToProjects": "Back to Projects",
+		"technologies": "Technologies",
+		"whatILearnt": "What I learnt:",
+		"createdDate": "Created",
+		"pagination": {
+			"previous": "Previous",
+			"next": "Next",
+			"pageInfo": "Page {{current}} of {{total}}"
+		},
 		"home": "Home",
 		"contact": "Contact",
 		"about": "About Me"
 	},
 	"Contact": {
 		"title": "Get in Touch",
-		"content": "Feel free to reach out to me via email or LinkedIn.",
+		"description": "I'm always open to discussing new projects, creative ideas, or opportunities. Feel free to reach out through any of the following channels.",
+		"phone1": {
+			"title": "Primary Phone",
+			"value": "+20 115 266 4911",
+			"label": "Call or WhatsApp"
+		},
+		"phone2": {
+			"title": "Secondary Phone",
+			"value": "+20 155 391 4552",
+			"label": "Alternative Number"
+		},
+		"email": {
+			"title": "Email Address",
+			"value": "ramy.yasser21102@gmail.com",
+			"label": "Send an Email"
+		},
+		"linkedin": {
+			"title": "LinkedIn",
+			"value": "linkedin.com/in/ramy-yasser-419a8a165",
+			"url": "https://www.linkedin.com/in/ramy-yasser-419a8a165/",
+			"label": "Connect on LinkedIn"
+		},
+		"github": {
+			"title": "GitHub",
+			"value": "github.com/zingerengineer",
+			"url": "https://github.com/zingerengineer",
+			"label": "View GitHub Profile"
+		},
 		"home": "Home",
 		"about": "About Me",
 		"projects": "Projects"
 	},
 	"Reviews": {
-		"title": "Reviews",
-		"content": "Here are some reviews from my clients and colleagues:",
+		"title": "Client Reviews & Testimonials",
+		"description": "What clients and colleagues say about working with me. These testimonials reflect the quality and professionalism I bring to every project.",
+		"noReviews": {
+			"title": "No Reviews Yet",
+			"description": "Reviews and testimonials from clients and colleagues will appear here once they're available."
+		},
 		"home": "Home",
 		"about": "About Me",
 		"projects": "Projects",

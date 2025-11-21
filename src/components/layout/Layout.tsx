@@ -2,6 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import { navigationBarStatics } from '@/constants/navigation';
 import { BreakpointProvider } from '@/context/BreakPointContext';
+import { useScrollPointPosition } from '@/hooks/useScrollPosition';
 import type { NavigationTabLabels } from '@/types/global';
 import LanguageSwitcher from './LanguageSwitcher';
 import NavigationBar from './NavigationBar';
@@ -14,6 +15,9 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
 	const { t } = useTranslation();
 
+	// Track and restore scroll position across routes
+	useScrollPointPosition();
+
 	const tabLabels: NavigationTabLabels = {
 		home: t('NavigationBar.home'),
 		about: t('NavigationBar.about'),
@@ -23,7 +27,7 @@ export function Layout({ children }: LayoutProps) {
 	};
 
 	return (
-		<div className="min-h-screen bg-background">
+		<div className="min-h-screen grow flex flex-col justify-center items-center">
 			<BreakpointProvider>
 				<NavigationBar navigationTabs={navigationBarStatics} tabLabels={tabLabels}>
 					<div className="flex items-center gap-2">
@@ -31,9 +35,12 @@ export function Layout({ children }: LayoutProps) {
 						<ThemeToggle />
 					</div>
 				</NavigationBar>
-				<div id={'main-content'} className="p-4">
+				<main
+					id={'main-content'}
+					className="flex justify-center items-center h-full w-full overflow-x-hidden overflow-y-auto"
+				>
 					{children}
-				</div>
+				</main>
 			</BreakpointProvider>
 		</div>
 	);
