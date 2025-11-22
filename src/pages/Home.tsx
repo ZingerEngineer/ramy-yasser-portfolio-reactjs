@@ -14,8 +14,8 @@ export function Home() {
 	const { t } = useTranslation();
 
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-center">
-			<SectionCard id={'image-section'} className="mt-0">
+		<div className="max-w-5xl h-screen flex flex-col items-center justify-center grow">
+			<SectionCard id={'image-section'}>
 				{breakpoint !== 'mobile' && (
 					<div className="flex flex-row items-center justify-center gap-8 w-full pt-10">
 						<img
@@ -47,7 +47,7 @@ export function Home() {
 					</div>
 				)}
 			</SectionCard>
-			<SectionCard id={'welcome-message-section'} className="my-0 justify-center">
+			<SectionCard id={'welcome-message-section'} className="mt-0 justify-center">
 				<div className="flex flex-col items-center justify-center text-center">
 					<h1 className="font-black lg:text-5xl md:text-3xl text-sm">{t('Home.welcome')}</h1>
 					<p className="lg:text-lg md:text-sm text-xs mt-4">{t('Home.description')}</p>
@@ -63,6 +63,6 @@ export function Home() {
 					</div>
 				</div>
 			</SectionCard>
-		</main>
+		</div>
 	);
 }

@@ -40,27 +40,126 @@
 	"About": {
 		"title": "عني",
 		"content": "أنا رامي ياسر، مطور برمجيات مجتهد عندي شغف لإنشاء حلول مبتكرة. بخبرة في لغات البرمجة والفريمووركس المختلفة، بسعى لتقديم تطبيقات عالية الجودة تلبي احتياجات المستخدمين وتفوق توقعاتهم.",
+		"nationality": {
+			"title": "الجنسية",
+			"value": "مصري"
+		},
+		"religion": {
+			"title": "الديانة",
+			"value": "الإسلام"
+		},
+		"militaryStatus": {
+			"title": "الموقف من التجنيد",
+			"value": "معفي"
+		},
+		"hobbies": {
+			"title": "الهوايات والاهتمامات",
+			"items": ["الألعاب الإلكترونية", "الجيم ورفع الأثقال"]
+		},
+		"techStack": {
+			"title": "التقنيات",
+			"description": "التكنولوجيا والأدوات اللي بشتغل بيها",
+			"categories": {
+				"frontend": {
+					"title": "الواجهة الأمامية",
+					"items": [
+						"React",
+						"Vue.js",
+						"Next.js",
+						"TypeScript",
+						"JavaScript",
+						"HTML",
+						"CSS",
+						"Sass",
+						"Tailwind CSS",
+						"Vite"
+					]
+				},
+				"backend": {
+					"title": "الواجهة الخلفية",
+					"items": ["Node.js", "Express", "API Development"]
+				},
+				"database": {
+					"title": "قواعد البيانات",
+					"items": ["SQL", "NoSQL", "MySQL", "MongoDB", "MSSQL", "PostgreSQL"]
+				},
+				"languages": {
+					"title": "لغات البرمجة",
+					"items": ["JavaScript", "TypeScript", "Python"]
+				},
+				"tools": {
+					"title": "الأدوات والـ DevOps",
+					"items": ["Git", "Docker", "CI/CD", "Testing"]
+				}
+			}
+		},
 		"home": "الرئيسية",
 		"contact": "تواصل معايا",
 		"projects": "مشاريعي"
 	},
 	"Projects": {
 		"title": "مشاريعي",
-		"content": "دي بعض المشاريع اللي اشتغلت عليها:",
+		"description": "عرض لأعمالي - من تطبيقات الويب إلى الحلول الكاملة. كل مشروع يمثل تحدي وتجربة تعليمية فريدة.",
+		"comingSoon": {
+			"title": "قريباً",
+			"description": "أنا حالياً بشتغل على مشاريع مثيرة! ارجع قريب عشان تشوف اللي بعمله."
+		},
+		"viewWebsite": "زيارة الموقع",
+		"viewRepository": "عرض الكود المصدري",
+		"backToProjects": "العودة للمشاريع",
+		"technologies": "التقنيات",
+		"whatILearnt": "ما تعلمته:",
+		"createdDate": "تاريخ الإنشاء",
+		"pagination": {
+			"previous": "السابق",
+			"next": "التالي",
+			"pageInfo": "صفحة {{current}} من {{total}}"
+		},
 		"home": "الرئيسية",
 		"contact": "تواصل معايا",
 		"about": "عني"
 	},
 	"Contact": {
 		"title": "تواصل معايا",
-		"content": "متترددش تتواصل معايا عن طريق الإيميل أو لينكد إن.",
+		"description": "أنا دايماً مستعد لمناقشة مشاريع جديدة، أفكار إبداعية، أو فرص. تواصل معايا من خلال أي من القنوات دي.",
+		"phone1": {
+			"title": "الموبايل الأساسي",
+			"value": "+20 115 266 4911",
+			"label": "اتصل أو واتساب"
+		},
+		"phone2": {
+			"title": "الموبايل التاني",
+			"value": "+20 155 391 4552",
+			"label": "رقم بديل"
+		},
+		"email": {
+			"title": "البريد الإلكتروني",
+			"value": "ramy.yasser21102@gmail.com",
+			"label": "ابعت إيميل"
+		},
+		"linkedin": {
+			"title": "لينكد إن",
+			"value": "linkedin.com/in/ramy-yasser-419a8a165",
+			"url": "https://www.linkedin.com/in/ramy-yasser-419a8a165/",
+			"label": "تواصل على لينكد إن"
+		},
+		"github": {
+			"title": "جيت هاب",
+			"value": "github.com/zingerengineer",
+			"url": "https://github.com/zingerengineer",
+			"label": "شوف البروفايل على جيت هاب"
+		},
 		"home": "الرئيسية",
 		"about": "عني",
 		"projects": "مشاريعي"
 	},
 	"Reviews": {
-		"title": "التقييمات",
-		"content": "دي بعض التقييمات من عملائي وزملائي:",
+		"title": "تقييمات العملاء والتوصيات",
+		"description": "آراء العملاء والزملاء اللي اشتغلت معاهم. التوصيات دي بتعكس الجودة والاحترافية اللي بقدمها في كل مشروع.",
+		"noReviews": {
+			"title": "لا توجد تقييمات بعد",
+			"description": "التقييمات والتوصيات من العملاء والزملاء ستظهر هنا بمجرد توفرها."
+		},
 		"home": "الرئيسية",
 		"about": "عني",
 		"projects": "مشاريعي",
