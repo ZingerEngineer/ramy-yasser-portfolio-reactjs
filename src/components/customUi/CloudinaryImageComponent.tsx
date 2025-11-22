@@ -1,7 +1,5 @@
-import { AdvancedImage, lazyload, placeholder, responsive } from '@cloudinary/react';
-import { fill, fit, scale } from '@cloudinary/url-gen/actions/resize';
-import { memo, useMemo } from 'react';
-import { cld } from '@/lib/cloudinary';
+import { memo, useEffect, useMemo, useState } from 'react';
+import { getAuthenticatedAssetUrl, getCloudinaryFullImageUrl } from '@/lib/cloudinary';
 import { cn } from '@/lib/utils';
 
 /**
@@ -25,8 +23,8 @@ export interface CloudinaryImageComponentProps {
 	 */
 	height?: number;
 	/**
-	 * Crop mode: 'fill' (crops to exact dimensions), 'fit' (fits within dimensions, preserves aspect ratio), or 'scale' (scales to exact dimensions)
-	 * @default 'scale'
+	 * Crop mode (deprecated - no longer used, kept for backward compatibility)
+	 * @deprecated Not used anymore, kept for backward compatibility
 	 */
 	crop?: 'fill' | 'fit' | 'scale';
 	/**
@@ -34,18 +32,18 @@ export interface CloudinaryImageComponentProps {
 	 */
 	className?: string;
 	/**
-	 * Whether to use responsive sizing
-	 * @default true
+	 * Whether to use responsive sizing (deprecated - no longer used)
+	 * @deprecated Not used anymore, kept for backward compatibility
 	 */
 	responsive?: boolean;
 	/**
-	 * Whether to use lazy loading
-	 * @default true
+	 * Whether to use lazy loading (deprecated - no longer used)
+	 * @deprecated Not used anymore, kept for backward compatibility
 	 */
 	lazy?: boolean;
 	/**
-	 * Whether to show placeholder while loading
-	 * @default true
+	 * Whether to show placeholder while loading (deprecated - no longer used)
+	 * @deprecated Not used anymore, kept for backward compatibility
 	 */
 	showPlaceholder?: boolean;
 	/**
@@ -61,6 +59,11 @@ export interface CloudinaryImageComponentProps {
 	 * Callback when image fails to load
 	 */
 	onError?: () => void;
+	/**
+	 * Whether this is an authenticated asset requiring signed URLs
+	 * @default false
+	 */
+	authenticated?: boolean;
 }
 
 /**
@@ -68,11 +71,9 @@ export interface CloudinaryImageComponentProps {
  *
  * @description
  * Renders images from Cloudinary with automatic optimization:
- * - Lazy loading with intersection observer
- * - Responsive sizing with automatic format/quality
- * - Blur placeholder while loading
+ * - Public images: Uses getCloudinaryFullImageUrl for unsigned URLs
+ * - Authenticated images: Fetches signed URLs from API
  * - Memoized to prevent unnecessary re-renders
- * - Built-in network saving strategies
  *
  * @example
  * ```tsx
@@ -87,67 +88,107 @@ export interface CloudinaryImageComponentProps {
 export const CloudinaryImageComponent = memo(function CloudinaryImageComponent({
 	publicId,
 	alt,
-	width,
-	height,
-	crop = 'scale',
+	width = 1920,
+	height = 1080,
+	crop: _crop, // Ignored, kept for backward compatibility
 	className,
-	responsive: useResponsive = true,
-	lazy = true,
-	showPlaceholder = true,
+	responsive: _responsive, // Ignored, kept for backward compatibility
+	lazy: _lazy, // Ignored, kept for backward compatibility
+	showPlaceholder: _showPlaceholder, // Ignored, kept for backward compatibility
 	loading = 'lazy',
 	onLoad,
 	onError,
+	authenticated = false,
 }: CloudinaryImageComponentProps) {
-	// Memoize the Cloudinary image instance
-	const img = useMemo(() => {
-		const image = cld.image(publicId);
+	// State for authenticated asset URL
+	const [signedUrl, setSignedUrl] = useState<string | null>(null);
+	const [isLoadingUrl, setIsLoadingUrl] = useState(authenticated);
+	const [urlError, setUrlError] = useState<Error | null>(null);
 
-		// Apply resize transformations if specified
-		if (width || height) {
-			// Choose resize mode based on crop parameter
-			const resizer =
-				crop === 'fill'
-					? fill() // Fill mode: crops to exact dimensions, may crop edges
-					: crop === 'fit'
-						? fit() // Fit mode: fits within dimensions, preserves aspect ratio, no cropping
-						: scale(); // Scale mode: scales to exact dimensions (may distort)
+	// Fetch signed URL for authenticated assets
+	useEffect(() => {
+		if (!authenticated) return;
 
-			if (width) resizer.width(width);
-			if (height) resizer.height(height);
-			image.resize(resizer);
+		let isMounted = true;
+
+		const fetchSignedUrl = async () => {
+			try {
+				setIsLoadingUrl(true);
+				setUrlError(null);
+				const url = await getAuthenticatedAssetUrl(publicId, width, height);
+				if (isMounted) {
+					setSignedUrl(url);
+					setIsLoadingUrl(false);
+				}
+			} catch (error) {
+				if (isMounted) {
+					setUrlError(error instanceof Error ? error : new Error('Failed to fetch signed URL'));
+					setIsLoadingUrl(false);
+					onError?.();
+				}
+			}
+		};
+
+		fetchSignedUrl();
+
+		return () => {
+			isMounted = false;
+		};
+	}, [authenticated, publicId, width, height, onError]);
+
+	// Memoize public image URL
+	const publicImageUrl = useMemo(() => {
+		if (authenticated) return null;
+		return getCloudinaryFullImageUrl(publicId, width, height);
+	}, [publicId, width, height, authenticated]);
+
+	// Render authenticated asset with signed URL
+	if (authenticated) {
+		if (isLoadingUrl) {
+			return (
+				<div className={cn('relative w-full h-full flex items-center justify-center', className)}>
+					<div className="animate-pulse bg-muted rounded-sm w-full h-full" />
+				</div>
+			);
 		}
 
-		return image;
-	}, [publicId, width, height, crop]);
-
-	// Memoize plugins array to prevent recreation
-	const plugins = useMemo(() => {
-		const pluginList = [];
-
-		// Add lazy loading plugin if enabled
-		if (lazy) {
-			pluginList.push(lazyload());
+		if (urlError || !signedUrl) {
+			return (
+				<div
+					className={cn(
+						'relative w-full h-full flex items-center justify-center bg-muted rounded-sm',
+						className,
+					)}
+				>
+					<span className="text-muted-foreground text-sm">Failed to load image</span>
+				</div>
+			);
 		}
 
-		// Add placeholder plugin if enabled
-		if (showPlaceholder) {
-			pluginList.push(placeholder({ mode: 'blur' }));
-		}
+		return (
+			<div className={cn('relative w-full h-full', className)}>
+				<img
+					src={signedUrl}
+					alt={alt}
+					loading={loading}
+					onLoad={onLoad}
+					onError={onError}
+					className="w-full h-full object-contain rounded-sm"
+				/>
+			</div>
+		);
+	}
 
-		// Add responsive plugin if enabled
-		if (useResponsive) {
-			pluginList.push(responsive({ steps: [640, 768, 1024, 1280, 1920] }));
-		}
-
-		return pluginList;
-	}, [lazy, showPlaceholder, useResponsive]);
+	// Render public asset with simple img tag
+	if (!publicImageUrl) {
+		return null;
+	}
 
 	return (
 		<div className={cn('relative w-full h-full', className)}>
-			<AdvancedImage
-				cldImg={img}
+			<img
+				src={publicImageUrl}
 				alt={alt}
-				plugins={plugins}
 				loading={loading}
 				onLoad={onLoad}
 				onError={onError}
