@@ -7,7 +7,7 @@ import { auto as autoQuality } from '@cloudinary/url-gen/qualifiers/quality';
 
 export const cld = new Cloudinary({
 	cloud: {
-		cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME, // safe public value
+		cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dxdkqsgfm', // safe public value
 	},
 });
 
