@@ -6,6 +6,7 @@ on:
       - main
       - development
     paths:
+      - "index.html"
       - "src/**"
       - "vite.config.ts"
       - "tailwind.config.ts"
