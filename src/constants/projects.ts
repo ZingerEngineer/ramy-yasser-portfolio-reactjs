@@ -350,14 +350,14 @@ export const projects: Project[] = [
 		normalModifiers: ['full-stack', 'mobile', 'sql'],
 		screenshots: [
 			{
-				cloudinaryPublicId: 'snack_n_track_placeholder_1',
-				alt: "Snack n' Track placeholder screenshot",
-				caption: "Snack n' Track placeholder",
+				cloudinaryPublicId: 'snack_track_scan',
+				alt: "Snack n' Track scan screenshot",
+				caption: "Snack n' Track scan page.",
 			},
 			{
-				cloudinaryPublicId: 'snack_n_track_placeholder_2',
-				alt: "Snack n' Track placeholder screenshot",
-				caption: "Snack n' Track placeholder",
+				cloudinaryPublicId: 'snack_track_demo',
+				alt: "Snack n' Track demo screenshot",
+				caption: "Snack n' Track demo page.",
 			},
 		],
 	},
