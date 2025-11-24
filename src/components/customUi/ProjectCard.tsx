@@ -69,12 +69,8 @@ export function ProjectCard({
 						<CloudinaryImageComponent
 							publicId={firstScreenshot.cloudinaryPublicId}
 							alt={firstScreenshot.alt}
-							width={640}
-							height={480}
-							crop="fit"
-							lazy
-							showPlaceholder
-							responsive
+							width={1280}
+							height={720}
 							className="w-full h-full rounded-sm"
 						/>
 					</div>
