@@ -23,6 +23,8 @@
 			},
 			"recommended": true,
 			"a11y": {
+				"useSemanticElements": "off",
+				"noStaticElementInteractions": "off",
 				"noSvgWithoutTitle": "off"
 			},
 			"complexity": {

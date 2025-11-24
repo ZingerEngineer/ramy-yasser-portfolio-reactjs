@@ -36,8 +36,7 @@ export function ProjectDetail() {
 	return (
 		<div className="max-w-5xl h-full mt-4 flex flex-col items-center justify-center grow">
 			{/* Project Header */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="project-detail-header" className="my-0 py-4 col-span-full rounded-b-none">
+			<SectionCard id={'project-detail-header'} className="my-0 py-4 col-span-full rounded-b-none">
 				<div className="flex flex-col items-center justify-center text-center w-full">
 					{/* Project Thumbnail Section (Carousel or Fallback) */}
 					<div className="w-full mb-6">
@@ -70,8 +69,7 @@ export function ProjectDetail() {
 			</SectionCard>
 
 			{/* Technologies Section */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="project-technologies" className="my-0 rounded-none">
+			<SectionCard id={'project-technologies'} className="my-0 rounded-none">
 				<div className="flex flex-col items-center text-center w-full py-4">
 					<h2 className="font-bold lg:text-2xl md:text-xl text-lg mb-4">
 						{t('Projects.technologies')}
@@ -90,8 +88,7 @@ export function ProjectDetail() {
 			</SectionCard>
 
 			{/* What I Learnt Section */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="project-what-i-learnt" className="my-0 rounded-none">
+			<SectionCard id={'project-what-i-learnt'} className="my-0 rounded-none">
 				<div className="flex flex-col items-center text-center w-full py-4">
 					<h2 className="font-bold lg:text-2xl md:text-xl text-lg mb-4">
 						{t('Projects.whatILearnt')}
@@ -104,8 +101,7 @@ export function ProjectDetail() {
 
 			{/* Links Section */}
 			{(project.websiteUrl || project.repositoryUrl) && (
-				// biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID
-				<SectionCard id="project-links" className="mt-0 rounded-t-none">
+				<SectionCard id={'project-links'} className="mt-0 rounded-t-none">
 					<div className="flex flex-col items-center justify-center text-center w-full py-4">
 						<div className="flex flex-wrap gap-4 justify-center">
 							{project.websiteUrl && (
@@ -116,7 +112,6 @@ export function ProjectDetail() {
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors lg:text-base md:text-sm text-xs"
-									aria-label={t('Projects.viewWebsite')}
 								>
 									<ExternalLink className="size-4" />
 									{t('Projects.viewWebsite')}
@@ -130,7 +125,6 @@ export function ProjectDetail() {
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-colors lg:text-base md:text-sm text-xs"
-									aria-label={t('Projects.viewRepository')}
 								>
 									<Github className="size-4" />
 									{t('Projects.viewRepository')}

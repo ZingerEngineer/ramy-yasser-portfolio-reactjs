@@ -73,7 +73,6 @@ export function Carousel({
 	const {
 		currentIndex,
 		isTransitioning,
-		isSingleImage,
 		isMinimized,
 		effectiveItemsToShow,
 		totalSlides,
@@ -131,7 +130,6 @@ export function Carousel({
 						onClick={handleMinimize}
 						onKeyDown={handleMinimizeKeyDown}
 						className="w-full h-full focus:outline-none focus:ring-2 focus:ring-primary transition-opacity hover:opacity-90"
-						aria-label="Restore carousel"
 					>
 						<CloudinaryImageComponent
 							publicId={firstScreenshot.cloudinaryPublicId!}
@@ -152,7 +150,6 @@ export function Carousel({
 						onClick={handleMinimize}
 						onKeyDown={handleMinimizeKeyDown}
 						className="w-full h-full focus:outline-none focus:ring-2 focus:ring-primary transition-opacity hover:opacity-90"
-						aria-label="Restore carousel"
 					>
 						<img
 							src={fallbackImage}
@@ -173,7 +170,6 @@ export function Carousel({
 							fallbackColor && `bg-linear-to-br ${fallbackColor}`,
 							!fallbackColor && 'bg-muted',
 						)}
-						aria-label="Restore carousel"
 					>
 						{FallbackIcon && (
 							<FallbackIcon className="size-16 lg:size-24 text-white opacity-50 transition-transform duration-300 hover:scale-110" />
@@ -223,8 +219,6 @@ export function Carousel({
 			onTouchStart={handleTouchStart}
 			onTouchMove={handleTouchMove}
 			onTouchEnd={handleTouchEnd}
-			aria-label={`Image carousel${isSingleImage ? ' (single image)' : ` (${images.length} images)`}`}
-			aria-roledescription="carousel"
 		>
 			{/* Carousel Container */}
 			<div className="relative overflow-hidden rounded-lg h-48 lg:h-64">
@@ -285,7 +279,6 @@ export function Carousel({
 									type="button"
 									onClick={() => openLightbox(index)}
 									className="w-full h-full focus:outline-none focus:ring-2 focus:ring-primary group"
-									aria-label={`Open ${image.alt} in fullscreen${image.caption ? `: ${image.caption}` : ''}`}
 								>
 									{image.cloudinaryPublicId ? (
 										<CloudinaryImageComponent
@@ -350,7 +343,6 @@ export function Carousel({
 							'disabled:opacity-50 disabled:cursor-not-allowed',
 							'focus:outline-none focus:ring-2 focus:ring-primary',
 						)}
-						aria-label="Previous image"
 					>
 						{orientation === 'horizontal' ? (
 							<ChevronLeft className="size-5 lg:size-6" />
@@ -378,7 +370,6 @@ export function Carousel({
 							'disabled:opacity-50 disabled:cursor-not-allowed',
 							'focus:outline-none focus:ring-2 focus:ring-primary',
 						)}
-						aria-label="Next image"
 					>
 						{orientation === 'horizontal' ? (
 							<ChevronRight className="size-5 lg:size-6" />
@@ -401,7 +392,6 @@ export function Carousel({
 						'hover:bg-white dark:hover:bg-black transition-colors',
 						'focus:outline-none focus:ring-2 focus:ring-primary',
 					)}
-					aria-label="Minimize carousel"
 				>
 					<Minimize2 className="size-4 lg:size-5" />
 				</button>
@@ -409,11 +399,7 @@ export function Carousel({
 
 			{/* Dot Indicators */}
 			{showDots && images.length > effectiveItemsToShow && (
-				<div
-					className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2"
-					role="tablist"
-					aria-label="Image indicators"
-				>
+				<div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
 					{Array.from({ length: totalSlides }, (_, index) => {
 						const slideIndex = index;
 						const isActive = loop ? currentIndex === slideIndex : currentIndex === slideIndex;
@@ -427,9 +413,6 @@ export function Carousel({
 									'rounded-full transition-all',
 									isActive ? 'w-8 h-2 bg-primary' : 'w-2 h-2 bg-white/60 hover:bg-white/80',
 								)}
-								aria-label={`Go to slide ${index + 1}`}
-								aria-selected={isActive}
-								role="tab"
 							/>
 						);
 					})}
@@ -437,10 +420,7 @@ export function Carousel({
 			)}
 
 			{/* Screen reader announcements */}
-			{/* biome-ignore lint/a11y/useSemanticElements: Using div with role="status" is the correct ARIA pattern for live announcements */}
-			<div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
-				{announcement}
-			</div>
+			<div className="sr-only">{announcement}</div>
 
 			{/* Lightbox */}
 			<Lightbox

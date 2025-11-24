@@ -328,9 +328,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 					onClose();
 				}
 			}}
-			role="dialog"
-			aria-modal="true"
-			aria-label="Image lightbox"
 		>
 			{/* Close Button */}
 			<button
@@ -342,7 +339,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 					'rounded-full p-2 transition-colors',
 					'focus:outline-none focus:ring-2 focus:ring-white',
 				)}
-				aria-label="Close lightbox"
 			>
 				<X className="size-6 text-white" />
 			</button>
@@ -358,8 +354,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 				onMouseMove={handleMouseMove}
 				onMouseUp={handleMouseUp}
 				onMouseLeave={handleMouseUp}
-				role="img"
-				aria-label={currentImage.alt}
 				tabIndex={-1}
 			>
 				{isLoading && !hasError && (
@@ -368,18 +362,13 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 							className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"
 							aria-hidden="true"
 						/>
-						{/* biome-ignore lint/a11y/useSemanticElements: Using span with role="status" is the correct ARIA pattern for loading states */}
-						<span className="sr-only" role="status" aria-label="Loading image">
+						<span className="sr-only">
 							Loading image {currentIndex + 1} of {images.length}
 						</span>
 					</div>
 				)}
 				{hasError ? (
-					<div
-						className="flex flex-col items-center justify-center gap-4"
-						role="alert"
-						aria-label={`Failed to load image: ${currentImage.alt}`}
-					>
+					<div className="flex flex-col items-center justify-center gap-4">
 						<ImageIcon className="size-24 text-white/50" aria-hidden="true" />
 						<p className="text-white/70 text-sm">Failed to load image</p>
 						<button
@@ -389,7 +378,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 								setIsLoading(true);
 							}}
 							className="mt-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white text-sm transition-colors"
-							aria-label="Retry loading image"
 						>
 							Retry
 						</button>
@@ -473,7 +461,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 						'disabled:opacity-50 disabled:cursor-not-allowed',
 						'focus:outline-none focus:ring-2 focus:ring-white',
 					)}
-					aria-label="Zoom in"
 				>
 					<ZoomIn className="size-5 text-white" />
 				</button>
@@ -487,7 +474,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 						'disabled:opacity-50 disabled:cursor-not-allowed',
 						'focus:outline-none focus:ring-2 focus:ring-white',
 					)}
-					aria-label="Zoom out"
 				>
 					<ZoomOut className="size-5 text-white" />
 				</button>
@@ -500,7 +486,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 							'rounded-full p-2 transition-colors',
 							'focus:outline-none focus:ring-2 focus:ring-white',
 						)}
-						aria-label="Reset zoom"
 					>
 						<RotateCcw className="size-5 text-white" />
 					</button>
@@ -521,7 +506,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 							'disabled:opacity-50 disabled:cursor-not-allowed',
 							'focus:outline-none focus:ring-2 focus:ring-white',
 						)}
-						aria-label="Previous image"
 					>
 						<ChevronLeft className="size-6 text-white" />
 					</button>
@@ -536,7 +520,6 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 							'disabled:opacity-50 disabled:cursor-not-allowed',
 							'focus:outline-none focus:ring-2 focus:ring-white',
 						)}
-						aria-label="Next image"
 					>
 						<ChevronRight className="size-6 text-white" />
 					</button>
@@ -557,11 +540,7 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 
 			{/* Dot Indicators */}
 			{images.length > 1 && (
-				<div
-					className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2"
-					role="tablist"
-					aria-label="Image indicators"
-				>
+				<div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex gap-2">
 					{images.map((image, index) => (
 						<button
 							key={`lightbox-dot-${image.url}-${index}`}
@@ -573,17 +552,13 @@ export function Lightbox({ images, currentIndex, isOpen, onClose, onNavigate }: 
 									? 'w-8 h-2 bg-white'
 									: 'w-2 h-2 bg-white/60 hover:bg-white/80',
 							)}
-							aria-label={`Go to image ${index + 1}`}
-							aria-selected={currentIndex === index}
-							role="tab"
 						/>
 					))}
 				</div>
 			)}
 
 			{/* Screen reader announcements */}
-			{/* biome-ignore lint/a11y/useSemanticElements: Using div with role="status" is the correct ARIA pattern for live announcements */}
-			<div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+			<div className="sr-only" aria-live="polite">
 				{announcement}
 			</div>
 		</div>

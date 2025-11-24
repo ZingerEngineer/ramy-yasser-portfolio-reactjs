@@ -17,9 +17,25 @@ export function Projects() {
 	const { locale } = useLocale();
 	const navigate = useNavigate();
 
-	// Use pagination hook with 5 projects per page
+	// Sort projects by special modifiers: advanced-project first, then my-first-project, then others
+	const sortedProjects = [...projects].sort((a, b) => {
+		// Get sort priority: 0 = advanced-project, 1 = my-first-project, 2 = others
+		const getPriority = (modifier?: string) => {
+			if (modifier === 'advanced-project') return 0;
+			if (modifier === 'my-first-project') return 1;
+			return 2;
+		};
+
+		const priorityA = getPriority(a.specialModifier);
+		const priorityB = getPriority(b.specialModifier);
+
+		// Sort by priority
+		return priorityA - priorityB;
+	});
+
+	// Use pagination hook with 12 projects per page
 	const { currentPage, totalPages, paginatedItems, hasNextPage, hasPrevPage, nextPage, prevPage } =
-		usePagination(projects, { itemsPerPage: 5 });
+		usePagination(sortedProjects, { itemsPerPage: 12 });
 
 	// Map project data to ProjectCard props
 	const projectCards = paginatedItems.map((project) => ({
@@ -39,8 +55,7 @@ export function Projects() {
 	return (
 		<div className="max-w-5xl h-screen grow grid grid-cols-1 gap-4 auto-rows-min">
 			{/* Header Section - Spans all columns */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="projects-header" className="col-span-full">
+			<SectionCard id={'projects-header'} className="col-span-full">
 				<div className="flex flex-col items-center justify-center text-center w-full py-6">
 					<h1 className="font-black lg:text-6xl md:text-4xl text-3xl">{t('Projects.title')}</h1>
 					<p className="lg:text-lg md:text-base text-sm mt-4 max-w-3xl">
@@ -52,8 +67,7 @@ export function Projects() {
 			{/* Conditional Rendering: Coming Soon or Project Grid */}
 			{projects.length === 0 ? (
 				// Coming Soon - Show when no projects available
-				// biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID
-				<SectionCard id="projects-coming-soon" className="col-span-full">
+				<SectionCard id={'projects-coming-soon'} className="col-span-full">
 					<div className="flex flex-col items-center justify-center text-center w-full py-12">
 						<Rocket className="size-16 lg:size-24 mb-6 text-primary animate-bounce" />
 						<h2 className="font-bold lg:text-4xl md:text-3xl text-2xl mb-4">
@@ -74,15 +88,15 @@ export function Projects() {
 					</div>
 
 					{/* Pagination Controls */}
-					{/* biome-ignore lint: Static ID for semantic page section identification */}
 					<PaginationControls
+						className="mb-4"
 						currentPage={currentPage}
 						totalPages={totalPages}
 						hasNextPage={hasNextPage}
 						hasPrevPage={hasPrevPage}
 						nextPage={nextPage}
 						prevPage={prevPage}
-						id="projects-pagination"
+						id={'projects-pagination'}
 					/>
 				</>
 			)}

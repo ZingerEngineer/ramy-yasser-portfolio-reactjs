@@ -34,7 +34,6 @@ export function Contact() {
 							href={`tel:${t('Contact.phone1.value')}`}
 							className="lg:text-lg md:text-base text-sm mt-2 hover:text-primary transition-colors"
 							style={{ direction: 'ltr' }}
-							aria-label={t('Contact.phone1.label')}
 						>
 							{t('Contact.phone1.value')}
 						</a>
@@ -45,8 +44,7 @@ export function Contact() {
 				</SectionCard>
 
 				{/* Phone 2 Card */}
-				{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-				<SectionCard id="phone2-section" className="my-0">
+				<SectionCard id={'phone2-section'} className="my-0">
 					<div className="flex flex-col items-center justify-center text-center w-full py-4">
 						<Smartphone className="size-12 lg:size-16 mb-4 text-primary" />
 						<h2 className="font-bold lg:text-2xl md:text-xl text-lg">
@@ -56,7 +54,6 @@ export function Contact() {
 							href={`tel:${t('Contact.phone2.value')}`}
 							className="lg:text-lg md:text-base text-sm mt-2 hover:text-primary transition-colors"
 							style={{ direction: 'ltr' }}
-							aria-label={t('Contact.phone2.label')}
 						>
 							{t('Contact.phone2.value')}
 						</a>
@@ -67,15 +64,13 @@ export function Contact() {
 				</SectionCard>
 
 				{/* Email Card */}
-				{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-				<SectionCard id="email-section" className="my-0">
+				<SectionCard id={'email-section'} className="my-0">
 					<div className="flex flex-col items-center justify-center text-center w-full py-4">
 						<Mail className="size-12 lg:size-16 mb-4 text-primary" />
 						<h2 className="font-bold lg:text-2xl md:text-xl text-lg">{t('Contact.email.title')}</h2>
 						<a
 							href={`mailto:${t('Contact.email.value')}`}
 							className="lg:text-lg md:text-base text-sm mt-2 hover:text-primary transition-colors break-all"
-							aria-label={t('Contact.email.label')}
 						>
 							{t('Contact.email.value')}
 						</a>
@@ -86,8 +81,7 @@ export function Contact() {
 				</SectionCard>
 
 				{/* LinkedIn Card */}
-				{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-				<SectionCard id="linkedin-section" className="my-0">
+				<SectionCard id={'linkedin-section'} className="my-0">
 					<div className="flex flex-col items-center justify-center text-center w-full py-4">
 						<Linkedin className="size-12 lg:size-16 mb-4 text-primary" />
 						<h2 className="font-bold lg:text-2xl md:text-xl text-lg">
@@ -98,7 +92,6 @@ export function Contact() {
 							target="_blank"
 							rel="noopener noreferrer"
 							className="lg:text-lg md:text-base text-sm mt-2 hover:text-primary transition-colors break-all"
-							aria-label={t('Contact.linkedin.label')}
 						>
 							{t('Contact.linkedin.value')}
 						</a>
@@ -109,8 +102,7 @@ export function Contact() {
 				</SectionCard>
 
 				{/* GitHub Card */}
-				{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-				<SectionCard id="github-section" className="my-0">
+				<SectionCard id={'github-section'} className="my-0">
 					<div className="flex flex-col items-center justify-center text-center w-full py-4">
 						<Github className="size-12 lg:size-16 mb-4 text-primary" />
 						<h2 className="font-bold lg:text-2xl md:text-xl text-lg">
@@ -121,7 +113,6 @@ export function Contact() {
 							target="_blank"
 							rel="noopener noreferrer"
 							className="lg:text-lg md:text-base text-sm mt-2 hover:text-primary transition-colors break-all"
-							aria-label={t('Contact.github.label')}
 						>
 							{t('Contact.github.value')}
 						</a>

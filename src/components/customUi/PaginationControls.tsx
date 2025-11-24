@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import SectionCard from '@/components/customUi/SectionCard';
 import { Button } from '@/components/ui/button';
 import { useLocale } from '@/context/LocaleContext';
+import { cn } from '@/lib/utils';
 
 export interface PaginationControlsProps {
 	/**
@@ -40,6 +41,10 @@ export interface PaginationControlsProps {
 	 * Optional translation namespace for pagination labels (defaults to 'Projects.pagination')
 	 */
 	translationNamespace?: string;
+	/**
+	 * Optional className to apply custom styles to the SectionCard wrapper
+	 */
+	className?: string;
 }
 
 /**
@@ -84,6 +89,7 @@ export function PaginationControls({
 	prevPage,
 	id = 'pagination',
 	translationNamespace = 'Projects.pagination',
+	className,
 }: PaginationControlsProps) {
 	const { t } = useTranslation();
 	const { locale } = useLocale();
@@ -93,7 +99,7 @@ export function PaginationControls({
 	}
 
 	return (
-		<SectionCard id={id} className="col-span-full">
+		<SectionCard id={id} className={cn('col-span-full', className)}>
 			<div className="flex items-center justify-center gap-4 w-full py-4">
 				<Button
 					variant="outline"
@@ -101,7 +107,6 @@ export function PaginationControls({
 					onClick={prevPage}
 					disabled={!hasPrevPage}
 					className="flex items-center gap-2"
-					aria-label={t(`${translationNamespace}.previous`)}
 				>
 					{locale === 'ar' ? (
 						<ChevronRight className="size-4" />
@@ -124,7 +129,6 @@ export function PaginationControls({
 					onClick={nextPage}
 					disabled={!hasNextPage}
 					className="flex items-center gap-2"
-					aria-label={t(`${translationNamespace}.next`)}
 				>
 					<span className="hidden sm:inline">{t(`${translationNamespace}.next`)}</span>
 					{locale === 'ar' ? (
