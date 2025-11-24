@@ -33,8 +33,7 @@ export function Reviews() {
 	return (
 		<div className="max-w-5xl flex flex-col h-screen grow">
 			{/* Page Header */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="reviews-header" className="col-span-full">
+			<SectionCard id={'reviews-header'} className="col-span-full">
 				<div className="flex flex-col items-center justify-center text-center w-full py-6">
 					<h1 className="font-black lg:text-6xl md:text-4xl text-3xl">{t('Reviews.title')}</h1>
 					<p className="lg:text-lg md:text-base text-sm mt-4 max-w-3xl">
@@ -46,8 +45,7 @@ export function Reviews() {
 			{/* Conditional Rendering: No Reviews or Reviews Grid */}
 			{reviews.length === 0 ? (
 				// No Reviews - Show when no reviews available
-				// biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID
-				<SectionCard id="reviews-empty" className="col-span-full">
+				<SectionCard id={'reviews-empty'} className="col-span-full">
 					<div className="flex flex-col items-center justify-center text-center w-full py-12">
 						<MessageSquare className="size-16 lg:size-24 mb-6 text-primary animate-bounce" />
 						<h2 className="font-bold lg:text-4xl md:text-3xl text-2xl mb-4">
@@ -68,7 +66,6 @@ export function Reviews() {
 					</div>
 
 					{/* Pagination Controls */}
-					{/* biome-ignore lint: Static ID for semantic page section identification */}
 					<PaginationControls
 						currentPage={currentPage}
 						totalPages={totalPages}
@@ -76,7 +73,7 @@ export function Reviews() {
 						hasPrevPage={hasPrevPage}
 						nextPage={nextPage}
 						prevPage={prevPage}
-						id="reviews-pagination"
+						id={'reviews-pagination'}
 					/>
 				</>
 			)}

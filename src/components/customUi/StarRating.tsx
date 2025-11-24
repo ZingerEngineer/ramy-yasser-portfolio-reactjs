@@ -51,13 +51,12 @@ export function StarRating({ rating }: StarRatingProps) {
 	}, [clampedRating]);
 
 	return (
-		<div className="flex gap-1" role="img" aria-label={`Rating: ${clampedRating} out of 5 stars`}>
+		<div className="flex gap-1">
 			{/* Full stars */}
 			{Array.from({ length: stars.fullStars }, (_, i) => (
 				<Star
 					key={`full-star-${i}-${clampedRating}`}
 					className="size-4 lg:size-5 fill-primary text-primary"
-					aria-hidden="true"
 				/>
 			))}
 
@@ -66,7 +65,6 @@ export function StarRating({ rating }: StarRatingProps) {
 				<StarHalf
 					key={`half-star-${clampedRating}`}
 					className="size-4 lg:size-5 fill-primary text-primary"
-					aria-hidden="true"
 				/>
 			)}
 
@@ -75,7 +73,6 @@ export function StarRating({ rating }: StarRatingProps) {
 				<Star
 					key={`empty-star-${i}-${clampedRating}`}
 					className="size-4 lg:size-5 text-muted-foreground"
-					aria-hidden="true"
 				/>
 			))}
 		</div>

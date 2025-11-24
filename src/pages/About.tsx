@@ -13,8 +13,7 @@ export function About() {
 	return (
 		<div className=" max-w-5xl h-full flex-col items-center justify-center grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 auto-rows-max">
 			{/* Page Title - Spans all columns */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="about-header" className="col-span-full mb-0">
+			<SectionCard id={'about-header'} className="col-span-full mb-0">
 				<div className="flex flex-col items-center justify-center text-center w-full py-6 ">
 					<h1 className="font-black lg:text-6xl md:text-4xl text-3xl">{t('About.title')}</h1>
 					<p className="lg:text-lg md:text-base text-sm mt-4 max-w-3xl">{t('About.content')}</p>
@@ -23,8 +22,7 @@ export function About() {
 
 			{/* Info Cards - Distributed in grid */}
 			{/* Nationality Card */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="nationality-section" className="my-0 h-full">
+			<SectionCard id={'nationality-section'} className="my-0 h-full">
 				<div className="flex flex-col items-center justify-center text-center w-full py-4">
 					<img src={egyptFlag} alt="Egypt Flag" className="w-14 h-14" />
 					<div className="flex flex-col items-center justify-center mb-4">
@@ -37,8 +35,7 @@ export function About() {
 			</SectionCard>
 
 			{/* Religion Card */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="religion-section" className="my-0 h-full">
+			<SectionCard id={'religion-section'} className="my-0 h-full">
 				<div className="flex flex-col items-center justify-center text-center w-full py-4">
 					<img src={islam} alt="Islam" className="w-14 h-14 dark:invert mb-4" />
 					<h2 className="font-bold lg:text-2xl md:text-xl text-lg">{t('About.religion.title')}</h2>
@@ -47,8 +44,7 @@ export function About() {
 			</SectionCard>
 
 			{/* Military Status Card */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="military-status-section" className="my-0 h-full">
+			<SectionCard id={'military-status-section'} className="my-0 h-full">
 				<div className="flex flex-col items-center justify-center text-center w-full py-4">
 					<Shield className="size-12 lg:size-16 mb-4 text-primary" />
 					<h2 className="font-bold lg:text-2xl md:text-xl text-lg">
@@ -59,8 +55,7 @@ export function About() {
 			</SectionCard>
 
 			{/* Hobbies Card */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="hobbies-section" className="my-0 h-full">
+			<SectionCard id={'hobbies-section'} className="my-0 h-full">
 				<div className="flex flex-col items-center justify-center text-center w-full py-4">
 					<Dumbbell className="size-12 lg:size-16 mb-4 text-primary" />
 					<h2 className="font-bold lg:text-2xl md:text-xl text-lg">{t('About.hobbies.title')}</h2>
@@ -75,8 +70,7 @@ export function About() {
 			</SectionCard>
 
 			{/* Tech Stack Card - Spans all columns */}
-			{/* biome-ignore lint/correctness/useUniqueElementIds: Single-use page section with semantic ID */}
-			<SectionCard id="tech-stack-section" className="col-span-full mt-0">
+			<SectionCard id={'tech-stack-section'} className="col-span-full mt-0">
 				<div className="flex flex-col items-center text-center w-full py-4">
 					<Code2 className="size-12 lg:size-16 mb-4 text-primary" />
 					<h2 className="font-bold lg:text-2xl md:text-xl text-lg">{t('About.techStack.title')}</h2>

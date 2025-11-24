@@ -107,7 +107,6 @@ export function PaginationControls({
 					onClick={prevPage}
 					disabled={!hasPrevPage}
 					className="flex items-center gap-2"
-					aria-label={t(`${translationNamespace}.previous`)}
 				>
 					{locale === 'ar' ? (
 						<ChevronRight className="size-4" />
@@ -130,7 +129,6 @@ export function PaginationControls({
 					onClick={nextPage}
 					disabled={!hasNextPage}
 					className="flex items-center gap-2"
-					aria-label={t(`${translationNamespace}.next`)}
 				>
 					<span className="hidden sm:inline">{t(`${translationNamespace}.next`)}</span>
 					{locale === 'ar' ? (

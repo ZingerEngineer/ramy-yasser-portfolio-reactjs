@@ -2,7 +2,17 @@
 // Project metadata with multilingual support
 
 import type { LucideIcon } from 'lucide-react';
-import { Clock, GraduationCap, Server, Heart, CheckSquare, Bot, Utensils, Image, Clipboard } from 'lucide-react';
+import {
+	Bot,
+	CheckSquare,
+	Clipboard,
+	Clock,
+	GraduationCap,
+	Heart,
+	Image,
+	Server,
+	Utensils,
+} from 'lucide-react';
 import type { CarouselImage } from '@/types/carousel';
 import type { NormalModifierType, SpecialModifierType } from '@/types/projectModifiers';
 
@@ -154,7 +164,15 @@ export const projects: Project[] = [
 		icon: Server,
 		repositoryUrl: 'https://github.com/ZingerEngineer/cardio_ai_server',
 		createdDate: '2024-01',
-		technologies: ['Python', 'FastAPI', 'Uvicorn', 'Pydantic', 'TensorFlow', 'PyTorch', 'scikit-learn'],
+		technologies: [
+			'Python',
+			'FastAPI',
+			'Uvicorn',
+			'Pydantic',
+			'TensorFlow',
+			'PyTorch',
+			'scikit-learn',
+		],
 		thumbnailColor: 'from-red-400 to-pink-600',
 		normalModifiers: ['back-end', 'api'],
 	},
@@ -166,7 +184,7 @@ export const projects: Project[] = [
 				shortDescription:
 					'Next.js front-end application for an AI-driven cardiac diagnostics system providing an interface for medical staff to upload ECG data and review AI-inferred anomalies',
 				fullDescription:
-					"Next JS Cardio AI is the front-end application for an AI-driven cardiac diagnostics system. It provides an interface for medical staff to upload cardiac activity (ECG/waveform) data, review inferred anomalies, and view a probability score of heart disease based on patient factors (age, sex, smoking, etc.). The UI consumes inference results from a backend inference service and presents them in a workflow tailored for doctors and nurses.\n\nThis was a university team project made for an AI systems course under the supervision of Dr. Shereen Elshekeby.",
+					'Next JS Cardio AI is the front-end application for an AI-driven cardiac diagnostics system. It provides an interface for medical staff to upload cardiac activity (ECG/waveform) data, review inferred anomalies, and view a probability score of heart disease based on patient factors (age, sex, smoking, etc.). The UI consumes inference results from a backend inference service and presents them in a workflow tailored for doctors and nurses.\n\nThis was a university team project made for an AI systems course under the supervision of Dr. Shereen Elshekeby.',
 				whatILearnt:
 					'- Next.js 13 with App Router\n\n- React 18 with TypeScript\n\n- Tailwind CSS for styling\n\n- next-auth for authentication\n\n- react-hook-form with Zod validation\n\n- Recharts for data visualization\n\n- Radix UI for accessible components\n\n- Sonner for notifications',
 			},
@@ -212,7 +230,7 @@ export const projects: Project[] = [
 				cloudinaryPublicId: 'cardio_ai_nextjs_data_inputs',
 				alt: 'Cardio AI Next.js Interface upload section screenshot',
 				caption: 'Cardio AI Interface upload section.',
-			}
+			},
 		],
 	},
 	{
@@ -276,7 +294,15 @@ export const projects: Project[] = [
 		icon: Bot,
 		repositoryUrl: 'https://github.com/ZingerEngineer/puppeteer_gpt_v1',
 		createdDate: '2024-01',
-		technologies: ['Node.js', 'TypeScript', 'Puppeteer', 'puppeteer-extra', 'puppeteer-extra-plugin-stealth', 'dotenv', 'Zod'],
+		technologies: [
+			'Node.js',
+			'TypeScript',
+			'Puppeteer',
+			'puppeteer-extra',
+			'puppeteer-extra-plugin-stealth',
+			'dotenv',
+			'Zod',
+		],
 		thumbnailColor: 'from-orange-400 to-amber-900',
 		normalModifiers: ['back-end', 'api'],
 	},
@@ -284,7 +310,7 @@ export const projects: Project[] = [
 		id: 'snack-n-track',
 		translations: {
 			en: {
-				name: 'Snack n\' Track',
+				name: "Snack n' Track",
 				shortDescription:
 					'An AI-powered mobile application designed to revolutionize health tracking and calorie management by identifying food items from photos',
 				fullDescription:
@@ -293,7 +319,7 @@ export const projects: Project[] = [
 					'- Monorepo architecture with yarn workspaces\n\n- Vue 3 with Ionic and Capacitor for mobile development\n\n- Express.js backend with Prisma ORM\n\n- Supabase for database management\n\n- OpenAI SDK for food recognition\n\n- Puppeteer for automation\n\n- File upload handling with Multer\n\n- JWT authentication\n\n- Docker for PostgreSQL containerization',
 			},
 			ar: {
-				name: 'Snack n\' Track',
+				name: "Snack n' Track",
 				shortDescription:
 					'تطبيق موبايل مدعوم بالذكاء الاصطناعي مصمم لإحداث ثورة في تتبع الصحة وإدارة السعرات الحرارية من خلال تحديد العناصر الغذائية من الصور',
 				fullDescription:
@@ -325,13 +351,13 @@ export const projects: Project[] = [
 		screenshots: [
 			{
 				cloudinaryPublicId: 'snack_n_track_placeholder_1',
-				alt: 'Snack n\' Track placeholder screenshot',
-				caption: 'Snack n\' Track placeholder',
+				alt: "Snack n' Track placeholder screenshot",
+				caption: "Snack n' Track placeholder",
 			},
 			{
 				cloudinaryPublicId: 'snack_n_track_placeholder_2',
-				alt: 'Snack n\' Track placeholder screenshot',
-				caption: 'Snack n\' Track placeholder',
+				alt: "Snack n' Track placeholder screenshot",
+				caption: "Snack n' Track placeholder",
 			},
 		],
 	},
