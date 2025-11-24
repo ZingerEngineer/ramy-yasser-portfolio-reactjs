@@ -17,9 +17,25 @@ export function Projects() {
 	const { locale } = useLocale();
 	const navigate = useNavigate();
 
-	// Use pagination hook with 5 projects per page
+	// Sort projects by special modifiers: advanced-project first, then my-first-project, then others
+	const sortedProjects = [...projects].sort((a, b) => {
+		// Get sort priority: 0 = advanced-project, 1 = my-first-project, 2 = others
+		const getPriority = (modifier?: string) => {
+			if (modifier === 'advanced-project') return 0;
+			if (modifier === 'my-first-project') return 1;
+			return 2;
+		};
+
+		const priorityA = getPriority(a.specialModifier);
+		const priorityB = getPriority(b.specialModifier);
+
+		// Sort by priority
+		return priorityA - priorityB;
+	});
+
+	// Use pagination hook with 12 projects per page
 	const { currentPage, totalPages, paginatedItems, hasNextPage, hasPrevPage, nextPage, prevPage } =
-		usePagination(projects, { itemsPerPage: 5 });
+		usePagination(sortedProjects, { itemsPerPage: 12 });
 
 	// Map project data to ProjectCard props
 	const projectCards = paginatedItems.map((project) => ({
@@ -76,6 +92,8 @@ export function Projects() {
 					{/* Pagination Controls */}
 					{/* biome-ignore lint: Static ID for semantic page section identification */}
 					<PaginationControls
+						
+						className="mb-4"
 						currentPage={currentPage}
 						totalPages={totalPages}
 						hasNextPage={hasNextPage}
